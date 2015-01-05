@@ -1,0 +1,75 @@
+<div ng-include="'components/navbar/navbar.html'"></div>
+
+<header class="hero-unit" id="banner">
+  <div class="container">
+    <h1 ng-bind-html="todo_title"></h1>
+  </div>
+</header>
+
+<div class="container">
+
+  <form class="todo-form">
+    <p class="input-group">
+      <input type="hidden" id="user_id" name="user_id" ng-model="todo.name">
+      <!-- <input type="input" ng-model="todo.duedate"> -->
+      <input type="text" class="form-control" id="todo" name="todo" placeholder="Add your todo" ng-model="todo.title">
+      <span class="input-group-btn">
+        <button type="submit" class="btn btn-primary" ng-click="createTodo()">Add Todo</button>
+      </span>
+    </p>
+  </form>
+
+
+  <div class="input-group" >
+    <!-- <input type="text"
+    class="form-control"
+    ng-model="date"
+    datepicker-popup
+    is-open="datePickerOpen" ng-click="toggleDatePicker($event)"> -->
+    <!-- <div class="input-group-addon" ng-click="toggleDatePicker($event)">
+      <i class="glyphicon glyphicon-calendar"></i>
+    </div> -->
+  </div>
+
+
+<div class="list-group" ui-sortable ng-model="todos">
+  <span ng:repeat="(index, todo) in todos" >
+    <!-- <span ng:repeat="(index, todo) in todos" style="padding:20px 20px;cursor: move;"> -->
+    <form editable-form name="TodoForm" onaftersave="updateTodo()" >
+      <a href="#" class="list-group-item" editable-text="todo.title" ng-model="editing.title" ng-click="TodoForm.$show(); editTodo(todo)" >{{todo.title}}</a>
+
+      <input type="text"
+      class="form-control"
+      ng-model="editing.duedate"
+      datepicker-popup
+      is-open="datePickerOpen" ng-click="toggleDatePicker($event)"
+      ng-disabled="TodoForm.$waiting"
+      ng-show="TodoForm.$visible">
+      <button class="btn btn-danger" ng-click="deleteTodo(todo)" aria-label="Remove">X</button>
+      <div class="buttons">
+        <!-- <input type="text" ng-model="todo.test"> -->
+      <span ng-show="TodoForm.$visible">
+        <button type="submit" class="btn btn-primary" ng-disabled="TodoForm.$waiting">
+          Save
+        </button>
+        <button type="button" class="btn btn-default" ng-disabled="TodoForm.$waiting" ng-click="TodoForm.$cancel()">
+          Cancel
+        </button>
+      </span>
+      </div>
+    </form>
+  </span>
+
+
+
+</div>
+
+
+<!-- <ul>
+  <li ng:repeat="todo in todos">
+    {{todo.title}}
+  </li>
+</ul> -->
+
+
+</div>
